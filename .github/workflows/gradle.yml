@@ -22,6 +22,21 @@ jobs:
         run: echo $JAVA_HOME
       - name: Verify Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
+      - name: Execute clean
+        run: ./gradlew --info --stacktrace clean
+      - name: Execute check
+        run: ./gradlew --info --stacktrace check
+      - name: Execute test
+        run: ./gradlew --info --stacktrace test
+      - name: Publish code coverage
+        if: matrix.os == 'ubuntu-latest'
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+          JACOCO_SOURCE_PATH: "${{github.workspace}}/src/main/java"
+        with:
+          coverageCommand: ./gradlew --info --stacktrace check
+          coverageLocations: ${{github.workspace}}/build/reports/jacoco/jacocoTestReport.xml:jacoco
       - name: Execute build
         run: ./gradlew --info --stacktrace build
       - name: Execute jlink
