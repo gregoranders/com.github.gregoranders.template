@@ -21,6 +21,7 @@ plugins {
     id 'org.beryx.jlink' version "${jlinkPluginVersion}"
     id 'org.javamodularity.moduleplugin' version "${modulePluginVersion}"
     id 'org.jetbrains.changelog' version "${gitChangeLogPluginVersion}"
+    id 'com.github.kt3k.coveralls' version "${coverallsPluginVersion}"
     id 'projectConfiguration'
 }
 
