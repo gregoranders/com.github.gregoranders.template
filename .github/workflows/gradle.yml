@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
-          path: gui/build/jpackage/*.dmg
+          path: build/jpackage/*.dmg
       - name: Upload EXE as an artifact
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v2
@@ -53,16 +53,16 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
-          path: gui/build/jpackage/*.deb
+          path: build/jpackage/*.deb
       - name: Upload RPM as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
           name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
-          path: gui/build/jpackage/*.rpm
+          path: build/jpackage/*.rpm
       - name: Upload ZIP as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}
+          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip
           path: build/distributions/*.zip
