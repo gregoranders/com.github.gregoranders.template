@@ -52,6 +52,9 @@ changelog {
     unreleasedTerm = "[Unreleased]"
     groups = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"]
 }
+coveralls {
+  jacocoReportPath 'build/reports/jacoco/jacocoTestReport.xml'
+}
 
 def pluginsCheck = false
 
