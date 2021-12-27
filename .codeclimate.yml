@@ -2,6 +2,16 @@ version: '2'
 plugins:
   editorconfig:
     enabled: true
+  checkstyle:
+    enabled: true
+    config:
+      file: "config/checkstyle/checkstyle.xml"
+  pmd:
+    enabled: true
+    config:
+      file: "config/pmd/pmd-rules.xml"
+  sonar-java:
+    enabled: true
   fixme:
     enabled: true
   git-legal:
