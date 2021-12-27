@@ -1,0 +1,118 @@
+name: Release CI
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CI: true
+  GITHUB_BRANCH: ${{ github.ref }}
+  GITHUB_HEAD_REF: ${{ github.head_ref }}
+  GITHUB_BASE_REF: ${{ github.base_ref }}
+  GITHUB_COMMIT: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        java: [ '17.0.1' ]
+      fail-fast: false
+    name: ${{ matrix.os }} JDK ${{ matrix.java }}
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Echo JAVA_HOME
+        run: echo $JAVA_HOME
+      - name: Verify Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Execute clean
+        run: ./gradlew --info --stacktrace clean
+      - name: Execute check
+        run: ./gradlew --info --stacktrace check
+      - name: Execute test
+        run: ./gradlew --info --stacktrace test
+      - name: Execute build
+        run: ./gradlew --info --stacktrace build
+      - name: Execute jlink
+        run: ./gradlew --info --stacktrace jlink
+      - name: Execute jlinkZip
+        run: ./gradlew --info --stacktrace jlinkZip
+      - name: Execute jpackage
+        run: ./gradlew --info --stacktrace jpackage
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload DMG Release Asset
+        if: matrix.os == 'macOS-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.dmg
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
+          asset_content_type: application/dmg
+      - name: Upload EXE Release Asset
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.exe
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
+          asset_content_type: application/exe
+      - name: Upload MSI Release Asset
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.msi
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
+          asset_content_type: application/msi
+      - name: Upload DEB Release Asset
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.deb
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
+          asset_content_type: application/deb
+      - name: Upload RPM Release Asset
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.rpm
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
+          asset_content_type: application/rpm
+      - name: Upload ZIP Release Asset
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/distributions/*.zip
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip
+          asset_content_type: application/zip
