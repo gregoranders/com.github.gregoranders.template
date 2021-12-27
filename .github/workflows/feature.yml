@@ -33,8 +33,6 @@ jobs:
         run: ./gradlew --info --stacktrace clean
       - name: Execute check
         run: ./gradlew --info --stacktrace check
-      - name: Execute test
-        run: ./gradlew --info --stacktrace test
       - name: Publish code coverage to codeclimate
         if: matrix.os == 'ubuntu-latest'
         uses: paambaati/codeclimate-action@v3.0.0

@@ -59,8 +59,6 @@ jobs:
         run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Java -r "${{github.workspace}}/build/reports/jacoco/jacocoTestReport.xml"
       - name: Execute build
         run: ./gradlew --info --stacktrace build
-      - name: Execute jlink
-        run: ./gradlew --info --stacktrace jlink
       - name: Execute jlinkZip
         run: ./gradlew --info --stacktrace jlinkZip
       - name: Execute jpackage
@@ -69,35 +67,29 @@ jobs:
         if: matrix.os == 'macOS-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
           path: build/jpackage/*.dmg
       - name: Upload EXE as an artifact
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
           path: build/jpackage/*.exe
       - name: Upload MSI as an artifact
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
           path: build/jpackage/*.msi
       - name: Upload DEB as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
           path: build/jpackage/*.deb
       - name: Upload RPM as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
           path: build/jpackage/*.rpm
       - name: Upload ZIP as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip
           path: build/distributions/*.zip

@@ -33,12 +33,8 @@ jobs:
         run: ./gradlew --info --stacktrace clean
       - name: Execute check
         run: ./gradlew --info --stacktrace check
-      - name: Execute test
-        run: ./gradlew --info --stacktrace test
       - name: Execute build
         run: ./gradlew --info --stacktrace build
-      - name: Execute jlink
-        run: ./gradlew --info --stacktrace jlink
       - name: Execute jlinkZip
         run: ./gradlew --info --stacktrace jlinkZip
       - name: Execute jpackage
@@ -52,7 +48,6 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
-          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
       - name: Upload EXE Release Asset
         if: matrix.os == 'windows-latest'
         uses: svenstaro/upload-release-action@v2
@@ -62,7 +57,6 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
-          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
       - name: Upload MSI Release Asset
         if: matrix.os == 'windows-latest'
         uses: svenstaro/upload-release-action@v2
@@ -72,7 +66,6 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
-          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
       - name: Upload DEB Release Asset
         if: matrix.os == 'ubuntu-latest'
         uses: svenstaro/upload-release-action@v2
@@ -82,7 +75,6 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
-          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
       - name: Upload RPM Release Asset
         if: matrix.os == 'ubuntu-latest'
         uses: svenstaro/upload-release-action@v2
@@ -92,7 +84,6 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
-          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
       - name: Upload ZIP Release Asset
         if: matrix.os == 'ubuntu-latest'
         uses: svenstaro/upload-release-action@v2
@@ -102,4 +93,3 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
-          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip

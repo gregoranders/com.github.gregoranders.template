@@ -264,6 +264,7 @@ class ProjectConfigurationPlugin implements Plugin<Project> {
                     noConsole = OperatingSystem.current().windows
                 }
                 jpackage {
+                    imageName = "${projectInternal.rootProject.group}.${projectInternal.rootProject.name}-${projectInternal.rootProject.version}"
                     if (OperatingSystem.current().windows) {
                         installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
                         imageOptions += ['--win-console']

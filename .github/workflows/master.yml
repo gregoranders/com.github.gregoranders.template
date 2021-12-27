@@ -34,8 +34,6 @@ jobs:
         run: ./gradlew --info --stacktrace clean
       - name: Execute check
         run: ./gradlew --info --stacktrace check
-      - name: Execute test
-        run: ./gradlew --info --stacktrace test
       - name: Publish code coverage to codeclimate
         if: matrix.os == 'ubuntu-latest'
         uses: paambaati/codeclimate-action@v3.0.0
@@ -70,35 +68,29 @@ jobs:
         if: matrix.os == 'macOS-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
           path: build/jpackage/*.dmg
       - name: Upload EXE as an artifact
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
           path: build/jpackage/*.exe
       - name: Upload MSI as an artifact
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
           path: build/jpackage/*.msi
       - name: Upload DEB as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
           path: build/jpackage/*.deb
       - name: Upload RPM as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
           path: build/jpackage/*.rpm
       - name: Upload ZIP as an artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip
           path: build/distributions/*.zip
