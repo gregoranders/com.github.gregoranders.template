@@ -31,25 +31,15 @@ jobs:
       - name: Upload DMG as an artifact
         uses: actions/upload-artifact@v2
         with:
-          name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
+          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
           path: gui/build/jpackage/*.dmg
       - name: Upload EXE as an artifact
         uses: actions/upload-artifact@v2
         with:
-          name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-exe
+          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
           path: gui/build/jpackage/*.exe
       - name: Upload MSI as an artifact
         uses: actions/upload-artifact@v2
         with:
-          name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-msi
+          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
           path: gui/build/jpackage/*.msi
-      - name: Upload DEB as an artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-deb
-          path: gui/build/jpackage/*.deb
-      - name: Upload RPM as an artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
-          path: gui/build/jpackage/*.rpm
