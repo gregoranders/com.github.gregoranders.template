@@ -1,0 +1,103 @@
+import java.text.SimpleDateFormat
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'idea'
+    id 'application'
+    id 'checkstyle'
+    id 'pmd'
+    id 'jacoco'
+    id 'project-report'
+    id 'build-dashboard'
+    id 'com.github.spotbugs' version "${spotbugsPluginVersion}"
+    id 'org.owasp.dependencycheck' version "${dependencyCheckVersion}"
+    id 'org.beryx.jlink' version "${jlinkPluginVersion}"
+    id 'org.javamodularity.moduleplugin' version "${modulePluginVersion}"
+    id 'org.jetbrains.changelog' version "${gitChangeLogPluginVersion}"
+    id 'projectConfiguration'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+application {
+    mainModule = project.property('mainModule')
+    mainClass = project.property('mainClass')
+}
+
+test {
+    moduleOptions {
+        runOnClasspath = true
+    }
+}
+
+changelog {
+    path = "${project.rootProject.projectDir}/CHANGELOG.md"
+    header = "[${-> version.get()}] - ${new SimpleDateFormat("yyyy-MM-dd").format(new Date())}"
+    headerParserRegex = ~/(\d+\.\d+)/
+    itemPrefix = "-"
+    keepUnreleasedSection = true
+    unreleasedTerm = "[Unreleased]"
+    groups = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"]
+}
+
+def pluginsCheck = false
+
+if (pluginsCheck) {
+    dependencies {
+        implementation(
+                [group: 'org.owasp', name: 'dependency-check-gradle', version: project.property('dependencyCheckVersion')],
+                [group: 'com.github.spotbugs', name: 'spotbugs', version: project.property('spotbugsVersion')],
+                [group: 'com.github.spotbugs.snom', name: 'spotbugs-gradle-plugin', version: project.property('spotbugsPluginVersion')],
+                [group: 'org.beryx', name: 'badass-jlink-plugin', version: project.property('jlinkPluginVersion')],
+                [group: 'org.javamodularity', name: 'moduleplugin', version: project.property('modulePluginVersion')]
+        )
+    }
+}
+
+dependencies {
+    implementation(
+            [group: 'org.slf4j', name: 'slf4j-api', version: project.property('slf4jVersion')],
+    )
+
+    runtimeOnly(
+            [group: 'ch.qos.logback', name: 'logback-core', version: project.property('logbackVersion')],
+            [group: 'ch.qos.logback', name: 'logback-classic', version: project.property('logbackVersion')],
+
+            [group: 'javax.servlet', name: 'javax.servlet-api', version: project.property('servletApiVersion')],
+    )
+
+    testImplementation(
+            platform(
+                    [group: 'org.codehaus.groovy', name: 'groovy-bom', version: project.property('groovyVersion')]
+            ),
+            platform(
+                    [group: 'org.spockframework', name: 'spock-bom', version: project.property('spockVersion')]
+            ),
+            [group: 'org.spockframework', name: 'spock-core'],
+            [group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: project.property('junitVersion')]
+    )
+
+    testRuntimeOnly(
+            [group: 'ch.qos.logback', name: 'logback-core', version: project.property('logbackVersion')],
+            [group: 'ch.qos.logback', name: 'logback-classic', version: project.property('logbackVersion')],
+    )
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
