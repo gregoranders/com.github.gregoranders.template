@@ -42,6 +42,14 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_REPO_TOKEN}}
         run: ./gradlew --info --stacktrace jacocoTestReport coveralls
+      - name: Publish code coverage to codacy
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          CODACY_PROJECT_TOKEN: ${{secrets.CODACY_PROJECT_TOKEN}}
+          CODACY_ORGANIZATION_PROVIDER: gh
+          CODACY_USERNAME: gregoranders
+          CODACY_PROJECT_NAME: "com.github.gregoranders.template"
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Java -r "${{github.workspace}}/build/reports/jacoco/jacocoTestReport.xml"
       - name: Execute build
         run: ./gradlew --info --stacktrace build
       - name: Execute jlink
