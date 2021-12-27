@@ -1,9 +1,14 @@
 name: Master CI
-
 on:
   push:
     branches:
       - master
+env:
+  CI: true
+  GITHUB_BRANCH: ${{ github.ref }}
+  GITHUB_HEAD_REF: ${{ github.head_ref }}
+  GITHUB_BASE_REF: ${{ github.base_ref }}
+  GITHUB_COMMIT: ${{ github.sha }}
 
 jobs:
   build:

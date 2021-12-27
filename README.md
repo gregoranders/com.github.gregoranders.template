@@ -6,7 +6,7 @@
 [![Issues][issues-image]][issues-url]
 [![Code maintainability][code-maintainability-image]][code-maintainability-url] [![Code issues][code-issues-image]][code-issues-url] [![Code Technical Debt][code-tech-debt-image]][code-tech-debt-url]
 
-[![Codacy Badge][codacy-image]][codacy-url]
+[![Codacy Badge][codacy-image]][codacy-url][![Codacy Badge][codacy-coverage-image]][codacy-url]
 
 [![Main Language][language-image]][code-metric-url] [![Languages][languages-image]][code-metric-url] [![Code Size][code-size-image]][code-metric-url] [![Repo-Size][repo-size-image]][code-metric-url]
 
@@ -54,5 +54,6 @@
 [languages-image]: https://img.shields.io/github/languages/count/gregoranders/com.github.gregoranders.template
 [code-size-image]: https://img.shields.io/github/languages/code-size/gregoranders/com.github.gregoranders.template
 [repo-size-image]: https://img.shields.io/github/repo-size/gregoranders/com.github.gregoranders.template
-[codacy-image]: https://app.codacy.com/project/badge/Grade/ba567567ab7c45eeab91ca4fe03011d4
-[codacy-url]: https://www.codacy.com/manual/gregoranders/com.github.gregoranders.template
+[codacy-image]: https://app.codacy.com/project/badge/Grade/d1cd7b5422ef48958feb9765a36f79c1
+[codacy-coverage-image]: https://app.codacy.com/project/badge/Coverage/d1cd7b5422ef48958feb9765a36f79c1
+[codacy-url]: https://app.codacy.com/gh/gregoranders/com.github.gregoranders.template/dashboard
