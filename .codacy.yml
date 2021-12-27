@@ -20,6 +20,7 @@ exclude_paths:
   - 'gradlew'
   - 'gradlew.bat'
   - 'config/**'
+  - '**Spec.groovy'
   - '**.json'
   - '**.yml'
   - '**.md'
