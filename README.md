@@ -1,4 +1,4 @@
-# JAVA Template
+# JAVA Starter Template
 
 [![Release][release-image]][release-url]
 
@@ -12,9 +12,15 @@
 
 ## Features
 
-- Gradle
+- [Gradle][base-gradle-url]
 - GitHub CI Integration (feature, development, master, release)
-- Code Quality via Code Climate and Codacy
+- Code Quality via [Code Climate][base-codeclimate-url], [Codacy][base-codacy-url] and [SonarCloud][base-sonarcloud-url]
+
+## Required repository secrets
+- [**CC_TEST_REPORTER_ID**](https://codeclimate.com)
+- [**CODACY_PROJECT_TOKEN**](https://app.codacy.com)
+- [**COVERALLS_REPO_TOKEN**](https://coveralls.io)
+- [**SONAR_TOKEN**](https://sonarcloud.io/)
 
 | GitHub                                                           | Coveralls                                                                  |
 |------------------------------------------------------------------|----------------------------------------------------------------------------|
@@ -26,14 +32,9 @@
 [release-url]: https://github.com/gregoranders/com.github.gregoranders.template/releases
 [master-url]: https://github.com/gregoranders/com.github.gregoranders.template/tree/master
 [development-url]: https://github.com/gregoranders/com.github.gregoranders.template/tree/development
-[repository-url]: https://github.com/gregoranders/com.github.gregoranders.template
 [code-metric-url]: https://github.com/gregoranders/com.github.gregoranders.template/search?l=JAVA
 [license-url]: https://github.com/gregoranders/com.github.gregoranders.template/blob/master/LICENSE
 [license-image]: https://img.shields.io/github/license/gregoranders/com.github.gregoranders.template.svg
-[master-version-url]: https://github.com/gregoranders/com.github.gregoranders.template/blob/master/package.json
-[master-version-image]: https://img.shields.io/github/package-json/v/gregoranders/com.github.gregoranders.template/master
-[development-version-url]: https://github.com/gregoranders/com.github.gregoranders.template/blob/development/package.json
-[development-version-image]: https://img.shields.io/github/package-json/v/gregoranders/com.github.gregoranders.template/development
 [issues-url]: https://github.com/gregoranders/com.github.gregoranders.template/issues
 [issues-image]: https://img.shields.io/github/issues-raw/gregoranders/com.github.gregoranders.template.svg
 [release-image]: https://img.shields.io/github/release/gregoranders/com.github.gregoranders.template
@@ -57,3 +58,8 @@
 [codacy-image]: https://app.codacy.com/project/badge/Grade/d1cd7b5422ef48958feb9765a36f79c1
 [codacy-coverage-image]: https://app.codacy.com/project/badge/Coverage/d1cd7b5422ef48958feb9765a36f79c1
 [codacy-url]: https://app.codacy.com/gh/gregoranders/com.github.gregoranders.template/dashboard
+[base-codeclimate-url]: https://codeclimate.com
+[base-codacy-url]: https://app.codacy.com
+[base-coveralls-url]: https://coveralls.io
+[base-sonarcloud-url]: https://sonarcloud.io
+[base-gradle-url]: https://gradle.org/

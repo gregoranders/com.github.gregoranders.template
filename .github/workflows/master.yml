@@ -28,6 +28,18 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Echo JAVA_HOME
         run: echo $JAVA_HOME
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
       - name: Verify Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Execute clean
@@ -58,6 +70,11 @@ jobs:
         run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Java -r "${{github.workspace}}/build/reports/jacoco/jacocoTestReport.xml"
       - name: Execute build
         run: ./gradlew --info --stacktrace build
+      - name: Sonarcube build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew --info --stacktrace sonarqube
       - name: Execute jlink
         run: ./gradlew --info --stacktrace jlink
       - name: Execute jlinkZip
