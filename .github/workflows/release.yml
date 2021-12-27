@@ -46,73 +46,63 @@ jobs:
         run: ./gradlew --info --stacktrace jlinkZip
       - name: Execute jpackage
         run: ./gradlew --info --stacktrace jpackage
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
       - name: Upload DMG Release Asset
         if: matrix.os == 'macOS-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/jpackage/*.dmg
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/*.dmg
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
           asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
-          asset_content_type: application/dmg
       - name: Upload EXE Release Asset
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/jpackage/*.exe
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/*.exe
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
           asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
-          asset_content_type: application/exe
       - name: Upload MSI Release Asset
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/jpackage/*.msi
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/*.msi
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
           asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
-          asset_content_type: application/msi
       - name: Upload DEB Release Asset
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/jpackage/*.deb
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/*.deb
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
           asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
-          asset_content_type: application/deb
       - name: Upload RPM Release Asset
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/jpackage/*.rpm
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/*.rpm
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
           asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
-          asset_content_type: application/rpm
       - name: Upload ZIP Release Asset
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/distributions/*.zip
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/distributions/*.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
           asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip
-          asset_content_type: application/zip

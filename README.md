@@ -1,5 +1,7 @@
 # JAVA Template
 
+[![Release][release-image]][release-url]
+
 [![License][license-image]][license-url]
 [![Issues][issues-image]][issues-url]
 [![Code maintainability][code-maintainability-image]][code-maintainability-url] [![Code issues][code-issues-image]][code-issues-url] [![Code Technical Debt][code-tech-debt-image]][code-tech-debt-url]
@@ -10,15 +12,15 @@
 
 ## Features
 
-  - Gradle
-  - GitHub CI Integration (feature, development, master, release)
-  - Code Quality via Code Climate and Codacy
+- Gradle
+- GitHub CI Integration (feature, development, master, release)
+- Code Quality via Code Climate and Codacy
 
-| GitHub                                                           | Coveralls                                                                  |                                                                              |
-|------------------------------------------------------------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------|
-| [![ReleaseMaster Build][release-build-image]][release-url]       |                                                                            | [![Release][release-image]][release-url]                                     |
-| [![Master Build][master-build-image]][master-url]                | [![Master Coverage][master-coveralls-image]][master-coveralls-url]         | [![Master Version][master-version-image]][master-version-url]                |
-| [![Development Build][development-build-image]][development-url] | [![Test Coverage][development-coveralls-image]][development-coveralls-url] | [![Development Version][development-version-image]][development-version-url] |
+| GitHub                                                           | Coveralls                                                                  |
+|------------------------------------------------------------------|----------------------------------------------------------------------------|
+| [![ReleaseMaster Build][release-build-image]][release-url]       |                                                                            |
+| [![Master Build][master-build-image]][master-url]                | [![Master Coverage][master-coveralls-image]][master-coveralls-url]         |
+| [![Development Build][development-build-image]][development-url] | [![Test Coverage][development-coveralls-image]][development-coveralls-url] |
 
 
 [release-url]: https://github.com/gregoranders/com.github.gregoranders.template/releases
