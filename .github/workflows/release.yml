@@ -1,6 +1,16 @@
-name: Gradle Build
+name: Release CI
 
-on: [push, pull_request]
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CI: true
+  GITHUB_BRANCH: ${{ github.ref }}
+  GITHUB_HEAD_REF: ${{ github.head_ref }}
+  GITHUB_BASE_REF: ${{ github.base_ref }}
+  GITHUB_COMMIT: ${{ github.sha }}
 
 jobs:
   build:
@@ -28,28 +38,6 @@ jobs:
         run: ./gradlew --info --stacktrace check
       - name: Execute test
         run: ./gradlew --info --stacktrace test
-      - name: Publish code coverage to codeclimate
-        if: matrix.os == 'ubuntu-latest'
-        uses: paambaati/codeclimate-action@v3.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-          JACOCO_SOURCE_PATH: "${{github.workspace}}/src/main/java"
-        with:
-          coverageCommand: ./gradlew --info --stacktrace check
-          coverageLocations: ${{github.workspace}}/build/reports/jacoco/jacocoTestReport.xml:jacoco
-      - name: Publish code coverage to coveralls
-        if: matrix.os == 'ubuntu-latest'
-        env:
-          COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_REPO_TOKEN}}
-        run: ./gradlew --info --stacktrace jacocoTestReport coveralls
-      - name: Publish code coverage to codacy
-        if: matrix.os == 'ubuntu-latest'
-        env:
-          CODACY_PROJECT_TOKEN: ${{secrets.CODACY_PROJECT_TOKEN}}
-          CODACY_ORGANIZATION_PROVIDER: gh
-          CODACY_USERNAME: gregoranders
-          CODACY_PROJECT_NAME: "com.github.gregoranders.template"
-        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Java -r "${{github.workspace}}/build/reports/jacoco/jacocoTestReport.xml"
       - name: Execute build
         run: ./gradlew --info --stacktrace build
       - name: Execute jlink
@@ -58,39 +46,73 @@ jobs:
         run: ./gradlew --info --stacktrace jlinkZip
       - name: Execute jpackage
         run: ./gradlew --info --stacktrace jpackage
-      - name: Upload DMG as an artifact
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload DMG Release Asset
         if: matrix.os == 'macOS-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
-          path: build/jpackage/*.dmg
-      - name: Upload EXE as an artifact
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.dmg
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
+          asset_content_type: application/dmg
+      - name: Upload EXE Release Asset
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
-          path: build/jpackage/*.exe
-      - name: Upload MSI as an artifact
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.exe
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
+          asset_content_type: application/exe
+      - name: Upload MSI Release Asset
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
-          path: build/jpackage/*.msi
-      - name: Upload DEB as an artifact
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.msi
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
+          asset_content_type: application/msi
+      - name: Upload DEB Release Asset
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
-          path: build/jpackage/*.deb
-      - name: Upload RPM as an artifact
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.deb
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
+          asset_content_type: application/deb
+      - name: Upload RPM Release Asset
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
-          path: build/jpackage/*.rpm
-      - name: Upload ZIP as an artifact
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/jpackage/*.rpm
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
+          asset_content_type: application/rpm
+      - name: Upload ZIP Release Asset
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip
-          path: build/distributions/*.zip
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/distributions/*.zip
+          asset_name: template-jdk${{ matrix.java }}-${{ matrix.os }}-zip
+          asset_content_type: application/zip
