@@ -8,6 +8,18 @@
 
 [![Codacy Badge][codacy-image]][codacy-url][![Codacy Badge][codacy-coverage-image]][codacy-url]
 
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=bugs)][sonarcloud-url]
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=code_smells)][sonarcloud-url]
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=coverage)][sonarcloud-url]
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=duplicated_lines_density)][sonarcloud-url]
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=ncloc)][sonarcloud-url]
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=sqale_rating)][sonarcloud-url]
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=alert_status)][sonarcloud-url]
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=reliability_rating)][sonarcloud-url]
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=security_rating)][sonarcloud-url]
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=sqale_index)][sonarcloud-url]
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=gregoranders_com.github.gregoranders.template&metric=vulnerabilities)][sonarcloud-url]
+
 [![Main Language][language-image]][code-metric-url] [![Languages][languages-image]][code-metric-url] [![Code Size][code-size-image]][code-metric-url] [![Repo-Size][repo-size-image]][code-metric-url]
 
 ## Features
@@ -58,6 +70,7 @@
 [codacy-image]: https://app.codacy.com/project/badge/Grade/d1cd7b5422ef48958feb9765a36f79c1
 [codacy-coverage-image]: https://app.codacy.com/project/badge/Coverage/d1cd7b5422ef48958feb9765a36f79c1
 [codacy-url]: https://app.codacy.com/gh/gregoranders/com.github.gregoranders.template/dashboard
+[sonarcloud-url]: https://sonarcloud.io/summary/new_code?id=gregoranders_com.github.gregoranders.template
 [base-codeclimate-url]: https://codeclimate.com
 [base-codacy-url]: https://app.codacy.com
 [base-coveralls-url]: https://coveralls.io
