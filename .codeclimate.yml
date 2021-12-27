@@ -1,0 +1,16 @@
+version: '2'
+plugins:
+  editorconfig:
+    enabled: true
+  fixme:
+    enabled: true
+  git-legal:
+    enabled: true
+exclude_patterns:
+  - '**/.github'
+  - '**/.circleci'
+  - '**/.vscode'
+  - '**/build'
+  - '**/temp'
+  - '**/test'
+  - '**/docs'
