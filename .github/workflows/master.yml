@@ -2,7 +2,7 @@ name: Master CI
 on:
   push:
     branches:
-      - master
+      - main
 env:
   CI: true
   GITHUB_BRANCH: ${{ github.ref }}
