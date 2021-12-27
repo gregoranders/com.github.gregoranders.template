@@ -14,3 +14,6 @@ exclude_patterns:
   - '**/temp'
   - '**/test'
   - '**/docs'
+  - '**/gradle'
+  - '**/gradlew'
+  - '**/gradlew.bat'
