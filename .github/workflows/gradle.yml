@@ -26,20 +26,43 @@ jobs:
         run: ./gradlew --info --stacktrace build
       - name: Execute jlink
         run: ./gradlew --info --stacktrace jlink
+      - name: Execute jlinkZip
+        run: ./gradlew --info --stacktrace jlinkZip
       - name: Execute jpackage
         run: ./gradlew --info --stacktrace jpackage
       - name: Upload DMG as an artifact
+        if: matrix.os == 'macOS-latest'
         uses: actions/upload-artifact@v2
         with:
           name: template-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
           path: gui/build/jpackage/*.dmg
       - name: Upload EXE as an artifact
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
           name: template-jdk${{ matrix.java }}-${{ matrix.os }}-exe
-          path: gui/build/jpackage/*.exe
+          path: build/jpackage/*.exe
       - name: Upload MSI as an artifact
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
           name: template-jdk${{ matrix.java }}-${{ matrix.os }}-msi
-          path: gui/build/jpackage/*.msi
+          path: build/jpackage/*.msi
+      - name: Upload DEB as an artifact
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-deb
+          path: gui/build/jpackage/*.deb
+      - name: Upload RPM as an artifact
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: template-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
+          path: gui/build/jpackage/*.rpm
+      - name: Upload ZIP as an artifact
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: template-jdk${{ matrix.java }}-${{ matrix.os }}
+          path: build/distributions/*.zip
