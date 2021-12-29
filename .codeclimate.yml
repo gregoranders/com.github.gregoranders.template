@@ -3,15 +3,15 @@ plugins:
   editorconfig:
     enabled: true
   checkstyle:
-    enabled: true
+    enabled: false
     config:
       file: "config/checkstyle/checkstyle.xml"
   pmd:
-    enabled: true
+    enabled: false
     config:
       file: "config/pmd/pmd-rules.xml"
   sonar-java:
-    enabled: true
+    enabled: false
   fixme:
     enabled: true
   git-legal:
