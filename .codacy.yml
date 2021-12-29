@@ -16,6 +16,7 @@ exclude_paths:
   - '.circleci/**'
   - '.github/**'
   - '.vscode/**'
+  - 'buildSrc/**'
   - 'gradle/**'
   - 'gradlew'
   - 'gradlew.bat'
