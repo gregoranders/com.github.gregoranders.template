@@ -23,11 +23,11 @@
   ~ SOFTWARE.
   -->
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
-    <suppress>
-        <notes><![CDATA[
+  <suppress>
+    <notes><![CDATA[
    file name: commons-io-2.6.jar
    ]]></notes>
-        <packageUrl regex="true">^pkg:maven/commons\-io/commons\-io@.*$</packageUrl>
-        <cve>CVE-2021-29425</cve>
-    </suppress>
+    <packageUrl regex="true">^pkg:maven/commons\-io/commons\-io@.*$</packageUrl>
+    <cve>CVE-2021-29425</cve>
+  </suppress>
 </suppressions>
