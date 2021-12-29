@@ -38,9 +38,9 @@ class ProjectConfigurationPlugin implements Plugin<Project> {
             File outDir = project.file("${project.buildDir}/reports/cpd")
             outDir.mkdirs()
             ant.taskdef(name: 'cpd', classname: 'net.sourceforge.pmd.cpd.CPDTask',
-                    classpath: project.configurations.pmd.asPath)
+                classpath: project.configurations.pmd.asPath)
             ant.cpd(minimumTokenCount: '40', format: 'xml',
-                    outputFile: new File(outDir, 'main.xml')) {
+                outputFile: new File(outDir, 'main.xml')) {
                 fileset(dir: "src/main/java") {
                     include(name: '**/*.java')
                 }
@@ -70,15 +70,15 @@ class ProjectConfigurationPlugin implements Plugin<Project> {
                 archiveVersion = "${projectInternal.version}"
 
                 def manifestAttributes = [
-                        'Created-By'              : "${projectInternal.properties['author']}",
-                        'Specification-Title'     : "${projectInternal.properties['description']}",
-                        'Specification-Version'   : "${projectInternal.version}",
-                        'Specification-Vendor'    : "${projectInternal.properties['author']}",
-                        'Specification-Vendor-Id' : "${projectInternal.properties['author']} <${projectInternal.properties['email']}>",
-                        'Implementation-Title'    : "${projectInternal.properties['description']} - Implementation",
-                        'Implementation-Version'  : "${projectInternal.version}",
-                        'Implementation-Vendor'   : "${projectInternal.properties['author']}",
-                        'Implementation-Vendor-Id': "${projectInternal.properties['author']} <${projectInternal.properties['email']}>"
+                    'Created-By'              : "${projectInternal.properties['author']}",
+                    'Specification-Title'     : "${projectInternal.properties['description']}",
+                    'Specification-Version'   : "${projectInternal.version}",
+                    'Specification-Vendor'    : "${projectInternal.properties['author']}",
+                    'Specification-Vendor-Id' : "${projectInternal.properties['author']} <${projectInternal.properties['email']}>",
+                    'Implementation-Title'    : "${projectInternal.properties['description']} - Implementation",
+                    'Implementation-Version'  : "${projectInternal.version}",
+                    'Implementation-Vendor'   : "${projectInternal.properties['author']}",
+                    'Implementation-Vendor-Id': "${projectInternal.properties['author']} <${projectInternal.properties['email']}>"
                 ]
 
                 if (projectInternal.properties['mainClass']) {
@@ -157,7 +157,6 @@ class ProjectConfigurationPlugin implements Plugin<Project> {
                 jacoco {
                     destinationFile = projectInternal.layout.buildDirectory.file("results/jacoco/jacoco-${name}.exec").get().asFile
                     classDumpDir = projectInternal.layout.buildDirectory.dir('results/classpathdumps').get().asFile
-                    excludes = ["**/Immutable*"]
                 }
                 finalizedBy projectInternal.jacocoTestReport
             }
@@ -173,8 +172,8 @@ class ProjectConfigurationPlugin implements Plugin<Project> {
                 toolVersion = projectInternal.properties['checkstyleVersion']
                 ignoreFailures = false
                 configProperties = [
-                        'checkstyle.header.file'      : projectInternal.file("${projectInternal.rootProject.projectDir}/config/checkstyle/checkstyle-header.txt"),
-                        'checkstyle.suppressions.file': projectInternal.file("${projectInternal.rootProject.projectDir}/config/checkstyle/checkstyle-suppressions.xml")
+                    'checkstyle.header.file'      : projectInternal.file("${projectInternal.rootProject.projectDir}/config/checkstyle/checkstyle-header.txt"),
+                    'checkstyle.suppressions.file': projectInternal.file("${projectInternal.rootProject.projectDir}/config/checkstyle/checkstyle-suppressions.xml")
                 ]
             }
         }
